@@ -14,7 +14,7 @@
 
             <!-- Right Section: Social Media Links -->
             <div class="col-md-6 text-center text-md-end">
-                <h5 class="text-uppercase">Follow Us</h5>
+                <h5 class="text-uppercase text-white">Follow Us</h5>
                 <ul class="list-unstyled d-flex justify-content-center justify-content-md-end mb-0">
                     <li class="mx-3">
                         <a href="#" class="text-light" aria-label="Facebook">
