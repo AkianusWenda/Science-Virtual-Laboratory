@@ -31,24 +31,24 @@
                 if ($result->num_rows > 0):
                     while ($video = $result->fetch_assoc()):
                 ?>
-                <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="post-box">
-                        <div class="post-img"><img src="assets/assets/img/bgkiri.png" class="img-fluid" alt=""></div>
-                        <div class="meta">
-                            <span class="post-date"> <?php echo tanggal($video['tanggal']); ?></span>
+                        <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                            <div class="post-box">
+                                <div class="post-img"><img src="assets/assets/img/bgkiri.png" class="img-fluid" alt=""></div>
+                                <div class="meta">
+                                    <span class="post-date"> <?php echo tanggal($video['tanggal']); ?></span>
+                                </div>
+                                <h3 class="post-title"><?php echo htmlspecialchars($video['judul']); ?></h3>
+                                <a href="quisdetail.php?id=<?php echo $video['idvideo']; ?>"
+                                    class="readmore stretched-link"><span>Lihat QUis</span><i class="bi bi-arrow-right"></i></a>
+                            </div>
                         </div>
-                        <h3 class="post-title"><?php echo htmlspecialchars($video['judul']); ?></h3>
-                        <a href="quisdetail.php?id=<?php echo $video['idvideo']; ?>"
-                            class="readmore stretched-link"><span>Lihat QUis</span><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
-                <?php
+                    <?php
                     endwhile;
                 else:
                     ?>
-                <div class="col-12">
-                    <p class="alert alert-warning">Belum ada quis yang tersedia.</p>
-                </div>
+                    <div class="col-12">
+                        <p class="alert alert-warning">Belum ada quis yang tersedia.</p>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
