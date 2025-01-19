@@ -31,6 +31,7 @@ if (isset($_GET['id'])) {
             <nav class="breadcrumbs">
                 <ol>
                     <li><a href="index.php">Home</a></li>
+                    <li><a href="materi.php">Materi</a></li>
                     <li class="current">Materi Detail</li>
                 </ol>
             </nav>
@@ -43,14 +44,20 @@ if (isset($_GET['id'])) {
                 <section id="blog-details" class="blog-details section">
                     <div class="container">
                         <article class="article">
-                            <img width="100%" style="border-radius: 20px;" src="foto/<?php echo htmlspecialchars($materi['foto']); ?>" alt="" class="img-fluid">
+                            <img width="100%" style="border-radius: 20px;"
+                                src="foto/<?php echo htmlspecialchars($materi['foto']); ?>" alt="" class="img-fluid">
 
                             <h2 class="title"><?php echo htmlspecialchars($materi['judul']); ?></h2>
 
                             <div class="meta-top">
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-details.html"><?php echo htmlspecialchars($materi['judul']); ?></a></li>
-                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-details.html"><time datetime="2020-01-01"><?php echo htmlspecialchars($materi['tanggal']); ?></time></a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
+                                            href="404.php"><?php echo htmlspecialchars($materi['judul']); ?></a>
+                                    </li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                            href="404.php"><time
+                                                datetime="2020-01-01"><?php echo htmlspecialchars($materi['tanggal']); ?></time></a>
+                                    </li>
                                 </ul>
                             </div>
 

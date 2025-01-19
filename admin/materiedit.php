@@ -16,17 +16,20 @@ $data = $ambil->fetch_assoc();
                         <form method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label class="mb-2">Judul</label>
-                                <input type="text" class="form-control mb-2" name="judul" value="<?= $data['judul'] ?>" placeholder="Judul Materi" required>
+                                <input type="text" class="form-control mb-2" name="judul" value="<?= $data['judul'] ?>"
+                                    placeholder="Judul Materi" required>
                             </div>
                             <div class="form-group">
                                 <label class="mb-2">Tanggal</label>
-                                <input type="date" class="form-control mb-2" name="tanggal" value="<?= $data['tanggal'] ?>" required>
+                                <input type="date" class="form-control mb-2" name="tanggal"
+                                    value="<?= $data['tanggal'] ?>" required>
                             </div>
                             <div class="form-group">
                                 <label class="mb-2">Deskripsi</label>
-                                <textarea class="form-control mb-2" name="isi" id="isi" rows="10"><?= $data['isi'] ?></textarea>
+                                <textarea class="form-control mb-2" name="isi" id="isi"
+                                    rows="10"><?= $data['isi'] ?></textarea>
                                 <script>
-                                    CKEDITOR.replace('isi');
+                                CKEDITOR.replace('isi');
                                 </script>
                             </div>
                             <div class="form-group">
@@ -36,7 +39,8 @@ $data = $ambil->fetch_assoc();
                                         <input type="file" class="form-control mb-2" name="foto">
                                     </div>
                                     <div class="col-md-4">
-                                        <a class="btn btn-success" href="foto/<?= $data['foto'] ?>" target="_blank">Lihat Foto Materi</a>
+                                        <a class="btn btn-success" href="../foto/<?= $data['foto'] ?>"
+                                            target="_blank">Lihat Foto Materi</a>
                                     </div>
                                 </div>
                             </div>
@@ -47,12 +51,14 @@ $data = $ambil->fetch_assoc();
                                         <input type="file" class="form-control mb-2" name="file">
                                     </div>
                                     <div class="col-md-4">
-                                        <a class="btn btn-success" href="foto/<?= $data['file'] ?>" target="_blank">Lihat File Materi</a>
+                                        <a class="btn btn-success" href="../foto/<?= $data['file'] ?>"
+                                            target="_blank">Lihat File Materi</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary float-end" type="submit" name="simpan" value="simpan">Simpan</button>
+                                <button class="btn btn-primary float-end" type="submit" name="simpan"
+                                    value="simpan">Simpan</button>
                             </div>
                         </form>
                     </div>

@@ -6,7 +6,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-6">
-                    <h2 data-aos="fade-up">Selamat Datang</h2>
+                    <h2 data-aos="fade-up" class="animated-text">
+                        <span>Selamat Datang</span>
+                    </h2>
                     <blockquote data-aos="fade-up" data-aos-delay="100">
                         <p>Para ilmuwan cilik! Belajar sains, seru dan mengasyikan!</p>
                     </blockquote>
@@ -15,6 +17,31 @@
         </div>
         <img src="assets/assets/img/hero.jpg" alt="" data-aos="fade-up">
     </section>
+
+    <style>
+    .animated-text {
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        font-size: 2rem;
+        color: #fff;
+    }
+
+    .animated-text span {
+        display: inline-block;
+        animation: scrolling-text 10s linear infinite;
+    }
+
+    @keyframes scrolling-text {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+    </style>
 
     <!-- About and Contact Section -->
     <section id="about-contact" class="about-contact section py-5 bg-light">
@@ -37,8 +64,10 @@
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
                                     <div class="accordion-body">
-                                        <strong>Identitas Utama</strong>: Kami adalah platform edukasi kesehatan yang
-                                        fokus pada pemberdayaan perempuan dalam mengelola nyeri haid.
+                                        <strong>Identitas Utama</strong>: Lorem ipsum dolor sit, amet consectetur
+                                        adipisicing elit. Voluptas velit placeat officiis eligendi dolores deserunt
+                                        tempora quam temporibus. Fugiat voluptatum adipisci debitis tempora dicta omnis
+                                        dolor odit minus libero nulla!
                                     </div>
                                 </div>
                             </div>
@@ -54,8 +83,10 @@
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                     data-bs-parent="#aboutAccordion">
                                     <div class="accordion-body">
-                                        <strong>Visi, Misi, dan Tujuan</strong>: Visi kami adalah menyediakan platform
-                                        yang informatif dan mendukung kesehatan perempuan terkait nyeri haid.
+                                        <strong>Visi, Misi, dan Tujuan</strong>: Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Nobis voluptate perspiciatis ipsam vero dolor illum, magnam
+                                        fugit. Neque voluptatem aspernatur nisi accusamus non earum sapiente sunt a
+                                        dicta, distinctio odio!
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +103,10 @@
                                 <div id="collapseThree" class="accordion-collapse collapse"
                                     aria-labelledby="headingThree" data-bs-parent="#aboutAccordion">
                                     <div class="accordion-body">
-                                        <strong>Fitur Utama</strong>: Kami menawarkan berbagai fitur seperti kalkulator
-                                        siklus menstruasi dan panduan penanganan nyeri haid.
+                                        <strong>Fitur Utama</strong>: Lorem ipsum dolor sit, amet consectetur
+                                        adipisicing elit. Voluptas velit placeat officiis eligendi dolores deserunt
+                                        tempora quam temporibus. Fugiat voluptatum adipisci debitis tempora dicta omnis
+                                        dolor odit minus libero nulla!
                                     </div>
                                 </div>
                             </div>
@@ -90,9 +123,10 @@
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                     data-bs-parent="#aboutAccordion">
                                     <div class="accordion-body">
-                                        <strong>Sasaran Pengguna</strong>: Platform ini ditujukan untuk perempuan dari
-                                        berbagai usia yang ingin mempelajari lebih lanjut tentang nyeri haid dan
-                                        solusinya.
+                                        <strong>Sasaran Pengguna</strong>: Lorem ipsum dolor sit, amet consectetur
+                                        adipisicing elit. Voluptas velit placeat officiis eligendi dolores deserunt
+                                        tempora quam temporibus. Fugiat voluptatum adipisci debitis tempora dicta omnis
+                                        dolor odit minus libero nulla!
                                     </div>
                                 </div>
                             </div>
@@ -109,8 +143,10 @@
                                 <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
                                     data-bs-parent="#aboutAccordion">
                                     <div class="accordion-body">
-                                        <strong>Tim Pengembang</strong>: Tim kami terdiri dari ahli medis dan teknisi
-                                        yang berkomitmen untuk memberikan solusi terbaik.
+                                        <strong>Tim Pengembang</strong>: Lorem ipsum dolor sit, amet consectetur
+                                        adipisicing elit. Voluptas velit placeat officiis eligendi dolores deserunt
+                                        tempora quam temporibus. Fugiat voluptatum adipisci debitis tempora dicta omnis
+                                        dolor odit minus libero nulla!
                                     </div>
                                 </div>
                             </div>
@@ -126,8 +162,10 @@
                                 <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
                                     data-bs-parent="#aboutAccordion">
                                     <div class="accordion-body">
-                                        <strong>Kontak dan Dukungan</strong>: Kami menyediakan saluran dukungan yang
-                                        dapat diakses kapan saja melalui form kontak di platform.
+                                        <strong>Kontak dan Dukungan</strong>: Lorem ipsum dolor sit, amet consectetur
+                                        adipisicing elit. Voluptas velit placeat officiis eligendi dolores deserunt
+                                        tempora quam temporibus. Fugiat voluptatum adipisci debitis tempora dicta omnis
+                                        dolor odit minus libero nulla!
                                     </div>
                                 </div>
                             </div>
@@ -139,18 +177,22 @@
                 <div class="col-lg-6 col-md-12">
                     <section id="contact-form" class="contact-form">
                         <h2 class="text-center mb-4">Kirim Pesan Pada Kami!</h2>
-                        <form action="send_message.php" method="post">
+                        <form action="index.php" method="post">
                             <div class="mb-3">
                                 <input type="text" name="name" class="form-control" placeholder="Tulis Namamu Disini"
+                                    style="font-size: 14px; color:rgb(0, 0, 0); background-color: #f8f9fa; border: 1px solid #ced4da;"
                                     required>
                             </div>
                             <div class="mb-3">
                                 <input type="text" name="class" class="form-control" placeholder="Tulis Kelasmu"
+                                    style="font-size: 14px; color:rgb(0, 0, 0); background-color: #f8f9fa; border: 1px solid #ced4da;"
                                     required>
                             </div>
                             <div class="mb-3">
                                 <textarea name="message" class="form-control" placeholder="Tulis Pertanyaan/Saranmu"
-                                    rows="6" required></textarea>
+                                    rows="11"
+                                    style="font-size: 14px; color:rgb(0, 0, 0); background-color: #f8f9fa; border: 1px solid #ced4da;"
+                                    required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Kirim</button>
                         </form>

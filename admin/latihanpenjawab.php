@@ -43,18 +43,22 @@ function skor($skor)
                                     <?php $nomor = 1;
                                     $ambildata = $koneksi->query("SELECT*FROM jawaban  where idkuis = '$idkuis'");
                                     while ($data = $ambildata->fetch_assoc()) { ?>
-                                        <tr>
-                                            <td><?php echo $nomor; ?></td>
-                                            <td><?php echo $data['nama'] ?></td>
-                                            <td><?php echo $data['email'] ?></td>
-                                            <td><?php echo $data['nohp'] ?></td>
-                                            <td><?php echo skor($data['skor']) ?></td>
-                                            <td><?php echo tanggal(date('Y-m-d', strtotime($data['waktu']))) . ' ' . date('H:i', strtotime($data['waktu'])) ?></td>
-                                            <td>
-                                                <a href="latihanhasiljawaban.php?id=<?php echo $data['idjawaban']; ?>&idkuis=<?php echo $_GET['id']; ?>" class="btn btn-success btn-sm m-1">Jawaban</a>
-                                                <a href="jawabanhapus.php?id=<?php echo $data['idjawaban']; ?>&idkuis=<?php echo $_GET['id']; ?>" class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data Ini ?')">Hapus</a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td><?php echo $nomor; ?></td>
+                                        <td><?php echo $data['nama'] ?></td>
+                                        <td><?php echo $data['email'] ?></td>
+                                        <td><?php echo $data['nohp'] ?></td>
+                                        <td><?php echo skor($data['skor']) ?></td>
+                                        <td><?php echo tanggal(date('Y-m-d', strtotime($data['waktu']))) . ' ' . date('H:i', strtotime($data['waktu'])) ?>
+                                        </td>
+                                        <td>
+                                            <a href="latihanhasiljawaban.php?id=<?php echo $data['idjawaban']; ?>&idkuis=<?php echo $_GET['id']; ?>"
+                                                class="btn btn-success btn-sm m-1">Jawaban</a>
+                                            <a href="jawabanhapus.php?id=<?php echo $data['idjawaban']; ?>&idkuis=<?php echo $_GET['id']; ?>"
+                                                class="btn btn-danger btn-sm m-1"
+                                                onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data Ini ?')">Hapus</a>
+                                        </td>
+                                    </tr>
                                     <?php
                                         $nomor++;
                                     } ?>

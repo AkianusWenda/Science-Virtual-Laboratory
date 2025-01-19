@@ -23,12 +23,12 @@
         <div class="container">
 
             <div class="row gy-5">
-            <?php
-            $query = "SELECT * FROM kuis WHERE status = 'Aktif'";
-            $result = $koneksi->query($query);
-            if ($result->num_rows > 0):
-                while ($data = $result->fetch_assoc()):
-            ?>
+                <?php
+                $query = "SELECT * FROM kuis WHERE status = 'Aktif'";
+                $result = $koneksi->query($query);
+                if ($result->num_rows > 0):
+                    while ($data = $result->fetch_assoc()):
+                ?>
                 <div class="col-xl-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="post-box">
                         <div class="post-img"><img src="assets/assets/img/kuis.jpg" class="img-fluid" alt=""></div>
@@ -36,17 +36,18 @@
                             <span class="post-date"><?= tanggal($data['tanggal']) ?></span>
                         </div>
                         <h3 class="post-title"><?= $data['judul'] ?></h3>
-                        <a href="form_peserta.php?id=<?= $data['idkuis'] ?>" class="readmore stretched-link"><span>Jawab Kuis</span><i class="bi bi-arrow-right"></i></a>
+                        <a href="form_peserta.php?id=<?= $data['idkuis'] ?>" class="readmore stretched-link"><span>Jawab
+                                Kuis</span><i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
                 <?php
-                endwhile;
-            else:
-                ?>
+                    endwhile;
+                else:
+                    ?>
                 <div class="col-12">
                     <p class="alert alert-warning">Belum ada kuis yang tersedia.</p>
                 </div>
-            <?php endif; ?>
+                <?php endif; ?>
             </div>
         </div>
     </section>

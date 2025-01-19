@@ -113,7 +113,7 @@ function hari($hari)
                     <li><a href="index.php">Home</a></li>
                     <li><a href="index.php#about-contact">About Us</a></li>
                     <li><a href="materi.php">Learning</a></li>
-                    <li><a href="video.php">Quiz</a></li>
+                    <li><a href="quis.php">Quiz</a></li>
                     <li><a href="form_peserta.php?id=1">Pilihan Ganda</a></li>
                     <li><a href="login.php">Login</a></li>
                 </ul>
