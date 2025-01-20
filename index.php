@@ -2,7 +2,9 @@
 <main class="main">
 
     <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
+    <section id="hero" class="hero section dark-background"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('assets/assets/img/hero_bg.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;"
+        data-aos="fade-in">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6">
