@@ -746,7 +746,7 @@ section,
 }
 
 .hero img {
-  width: 40%;
+  width: 50%;
   padding-right: 70px;
   object-fit: cover;
   z-index: 1;
@@ -850,12 +850,14 @@ section,
   }
 
   .hero img {
-    width: 100%;
+    width: 150%;
     height: auto;
     object-fit: cover;
     margin-bottom: 10px;
-    max-height: 500px;
     object-position: center;
+    object-fit: cover;
+    z-index: 1;
+    margin: 0;
   }
 
   .hero .container {
