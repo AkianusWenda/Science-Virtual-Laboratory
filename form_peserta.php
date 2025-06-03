@@ -31,14 +31,15 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" required>
+                        <label for="kelas">Kelas</label>
+                        <input type="text" class="form-control" name="kelas" required>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="nohp">No HP</label>
-                        <input type="text" class="form-control" name="nohp" required>
+                        <label for="sekolah">Sekolah</label>
+                        <input type="text" class="form-control" name="sekolah" required>
                     </div>
+
 
                     <button type="submit" class="btn btn-primary">Mulai Kuis</button>
                 </form>

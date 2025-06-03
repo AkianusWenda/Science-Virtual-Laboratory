@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package dompdf
  * @link    http://dompdf.github.com/
@@ -73,8 +74,16 @@ class Style
      *
      * @var array
      */
-    static $vertical_align_keywords = ["baseline", "bottom", "middle", "sub",
-        "super", "text-bottom", "text-top", "top"];
+    static $vertical_align_keywords = [
+        "baseline",
+        "bottom",
+        "middle",
+        "sub",
+        "super",
+        "text-bottom",
+        "text-top",
+        "top"
+    ];
 
     /**
      * List of all block-level (outer) display types.
@@ -136,18 +145,41 @@ class Style
      *
      * @var array
      */
-    static $BORDER_STYLES = ["none", "hidden", "dotted", "dashed", "solid",
-        "double", "groove", "ridge", "inset", "outset"];
+    static $BORDER_STYLES = [
+        "none",
+        "hidden",
+        "dotted",
+        "dashed",
+        "solid",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset"
+    ];
 
     /**
      * List of CSS shorthand properties
      *
      * @var array
      */
-    protected static $_props_shorthand = ["background", "border",
-        "border_bottom", "border_color", "border_left", "border_radius",
-        "border_right", "border_style", "border_top", "border_width",
-        "flex", "font", "list_style", "margin", "padding"];
+    protected static $_props_shorthand = [
+        "background",
+        "border",
+        "border_bottom",
+        "border_color",
+        "border_left",
+        "border_radius",
+        "border_right",
+        "border_style",
+        "border_top",
+        "border_width",
+        "flex",
+        "font",
+        "list_style",
+        "margin",
+        "padding"
+    ];
 
     /**
      * Default style values.
@@ -320,7 +352,7 @@ class Style
         if (!isset(self::$_defaults)) {
 
             // Shorthand
-            $d =& self::$_defaults;
+            $d = &self::$_defaults;
 
             // All CSS 2.1 properties, and their default values
             $d["azimuth"] = "center";
@@ -519,9 +551,7 @@ class Style
     /**
      * "Destructor": forcibly free all references held by this object
      */
-    function dispose()
-    {
-    }
+    function dispose() {}
 
     /**
      * @param $media_queries
@@ -747,7 +777,8 @@ class Style
             //inherit the !important property also.
             //if local property is also !important, don't inherit.
 
-            if (isset($parent->_props_computed[$prop]) &&
+            if (
+                isset($parent->_props_computed[$prop]) &&
                 (
                     !isset($this->_props[$prop])
                     || (isset($parent->_important_props[$prop]) && !isset($this->_important_props[$prop]))
@@ -1315,8 +1346,10 @@ class Style
         $tmp = explode(" ", $this->_props_computed["background_position"]);
 
         return [
-            0 => $tmp[0], "x" => $tmp[0],
-            1 => $tmp[1], "y" => $tmp[1],
+            0 => $tmp[0],
+            "x" => $tmp[0],
+            1 => $tmp[1],
+            "y" => $tmp[1],
         ];
     }
 
@@ -2020,7 +2053,7 @@ class Style
         $this->_props["background_attachment"] = $val;
         $this->_props_computed["background_attachment"] = null;
         $this->_prop_cache["background_attachment"] = null;
-        
+
         if ($val === 'inherit') {
             return;
         }
@@ -2108,7 +2141,7 @@ class Style
         if (!isset($y)) {
             $y = "0%";
         }
-        
+
         $this->_props_computed["background_position"] = "$x $y";
         $this->_prop_cache["background_position"] = null;
     }
@@ -2335,7 +2368,8 @@ class Style
         }
 
         //matching numeric value followed by unit -> this is indeed a subsequent font size. Skip!
-        if (preg_match("/^(bold|bolder|lighter|100|200|300|400|500|600|700|800|900|normal)\s*(.*)$/i", $val, $match) &&
+        if (
+            preg_match("/^(bold|bolder|lighter|100|200|300|400|500|600|700|800|900|normal)\s*(.*)$/i", $val, $match) &&
             !preg_match("/^(?:pt|px|pc|em|ex|in|cm|mm|%)/", $match[2])
         ) {
             $this->_set_style("font_weight", $match[1], $important);
@@ -2375,11 +2409,10 @@ class Style
             if ($this->__get("direction") === "rtl") {
                 $alignment = "right";
             }
-
         }
         $this->_props_computed["text_align"] = $alignment;
     }
-    
+
     /**
      * Sets word spacing property
      *
@@ -2595,23 +2628,23 @@ class Style
             $value = trim($value);
             $prop = "";
             if (strtolower($value) === "inherit") {
-                $this->__set("border_${side}_color", "inherit");
-                $this->__set("border_${side}_style", "inherit");
-                $this->__set("border_${side}_width", "inherit");
+                $this->{"border_{$side}_color"} = "inherit";
+                $this->{"border_{$side}_style"} = "inherit";
+                $this->{"border_{$side}_width"} = "inherit";
                 continue;
             } elseif (in_array($value, self::$BORDER_STYLES)) {
-                $prop = "border_${side}_style";
+                $prop = "border_{$side}_style";
             } elseif ($value === "0" || preg_match("/[.0-9]+(?:px|pt|pc|em|ex|%|in|mm|cm)|(?:thin|medium|thick)/", $value)) {
-                $prop = "border_${side}_width";
+                $prop = "border_{$side}_width";
             } else {
                 // must be color
-                $prop = "border_${side}_color";
+                $prop = "border_{$side}_color";
             }
 
-            if ($important) {
+            if (!empty($important)) {
                 $this->_important_props[$prop] = true;
             }
-            $this->__set($prop, $value);
+            $this->{$prop} = $value;
         }
     }
 
@@ -2843,18 +2876,20 @@ class Style
      */
     protected function _set_border_radius_corner($val, $corner)
     {
+        // Reset cache
         $this->has_border_radius_cache = null;
-        $this->_has_border_radius = true;
 
-        $this->_props["border_" . $corner . "_radius"] = $val;
-        $this->_props_computed["border_" . $corner . "_radius"] = null;
-        $this->_prop_cache["border_" . $corner . "_radius"] = null;
+        $prop = "border_" . $corner . "_radius";
+
+        $this->_props[$prop] = $val;
+        $this->_props_computed[$prop] = null;
+        $this->_prop_cache[$prop] = null;
 
         if ($val === 'inherit') {
             return;
         }
 
-        $this->_props_computed["border_" . $corner . "_radius"] = $val;
+        $this->_props_computed[$prop] = $val;
     }
 
     /**
@@ -3037,15 +3072,30 @@ class Style
         $arr = explode(" ", str_replace(",", " ", $val));
 
         static $types = [
-            "disc", "circle", "square",
-            "decimal-leading-zero", "decimal", "1",
-            "lower-roman", "upper-roman", "a", "A",
+            "disc",
+            "circle",
+            "square",
+            "decimal-leading-zero",
+            "decimal",
+            "1",
+            "lower-roman",
+            "upper-roman",
+            "a",
+            "A",
             "lower-greek",
-            "lower-latin", "upper-latin",
-            "lower-alpha", "upper-alpha",
-            "armenian", "georgian", "hebrew",
-            "cjk-ideographic", "hiragana", "katakana",
-            "hiragana-iroha", "katakana-iroha", "none"
+            "lower-latin",
+            "upper-latin",
+            "lower-alpha",
+            "upper-alpha",
+            "armenian",
+            "georgian",
+            "hebrew",
+            "cjk-ideographic",
+            "hiragana",
+            "katakana",
+            "hiragana-iroha",
+            "katakana-iroha",
+            "none"
         ];
 
         static $positions = ["inside", "outside"];
@@ -3268,7 +3318,7 @@ class Style
         if ($val === 'inherit') {
             return;
         }
-        
+
         $this->_props_computed["transform"] = $val;
     }
 
@@ -3316,7 +3366,7 @@ class Style
     function get_transform_origin()
     {
         //TODO: should be handled in setter
-        
+
         $values = preg_split("/\s+/", $this->_props_computed['transform_origin']);
 
         $values = array_map(function ($value) {
@@ -3447,8 +3497,10 @@ class Style
     /*DEBUGCSS print: see below additional debugging util*/
     function __toString()
     {
-        return print_r(array_merge(["parent_font_size" => $this->_parent_font_size],
-            $this->_props), true);
+        return print_r(array_merge(
+            ["parent_font_size" => $this->_parent_font_size],
+            $this->_props
+        ), true);
     }
 
     /*DEBUGCSS*/

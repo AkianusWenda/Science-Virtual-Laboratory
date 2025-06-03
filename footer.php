@@ -46,7 +46,7 @@
         <!-- Bottom Section: Copyright & Powered By -->
         <div class="row text-center">
             <div class="col-12">
-                <p class="mb-1">&copy; 2025 <strong class="sitename">Science-Virtual-Laboratory</strong></p>
+                <p class="mb-1">&copy; 2025 <strong class="sitename">Science-Virtual-Learning</strong></p>
                 <p class="mb-0">Powered by <strong><a href="https://akianuswenda.com" class="text-light">Akianus
                             Wenda</a></strong></p>
             </div>

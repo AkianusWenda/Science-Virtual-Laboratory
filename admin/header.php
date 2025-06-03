@@ -6,92 +6,68 @@ if (!isset($_SESSION['pengguna'])) {
   echo "<script>location='login.php';</script>";
   exit();
 }
+
 function tanggal($tgl)
 {
   $tanggal = substr($tgl, 8, 2);
-  $bulan = getBulan(substr($tgl, 5, 2));
+  $bulan = getBulan((int)substr($tgl, 5, 2));
   $tahun = substr($tgl, 0, 4);
   return $tanggal . ' ' . $bulan . ' ' . $tahun;
 }
+
 function getBulan($bln)
 {
   switch ($bln) {
     case 1:
       return "Januari";
-      break;
     case 2:
       return "Februari";
-      break;
     case 3:
       return "Maret";
-      break;
     case 4:
       return "April";
-      break;
     case 5:
       return "Mei";
-      break;
     case 6:
       return "Juni";
-      break;
     case 7:
       return "Juli";
-      break;
     case 8:
       return "Agustus";
-      break;
     case 9:
       return "September";
-      break;
     case 10:
       return "Oktober";
-      break;
     case 11:
       return "November";
-      break;
     case 12:
       return "Desember";
-      break;
+    default:
+      return "";
   }
 }
+
 function hari($hari)
 {
   $hari = date("D", strtotime($hari));
   switch ($hari) {
     case 'Sun':
-      $hari_ini = "Minggu";
-      break;
-
+      return "Minggu";
     case 'Mon':
-      $hari_ini = "Senin";
-      break;
-
+      return "Senin";
     case 'Tue':
-      $hari_ini = "Selasa";
-      break;
-
+      return "Selasa";
     case 'Wed':
-      $hari_ini = "Rabu";
-      break;
-
+      return "Rabu";
     case 'Thu':
-      $hari_ini = "Kamis";
-      break;
-
+      return "Kamis";
     case 'Fri':
-      $hari_ini = "Jumat";
-      break;
-
+      return "Jumat";
     case 'Sat':
-      $hari_ini = "Sabtu";
-      break;
-
+      return "Sabtu";
     default:
-      $hari_ini = "Tidak di ketahui";
-      break;
+      return "Tidak diketahui";
   }
-
-  return $hari_ini;
 }
 
 function wordlimiter($string, $limit)
@@ -101,8 +77,6 @@ function wordlimiter($string, $limit)
 }
 ?>
 <!DOCTYPE html>
-
-
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
   data-assets-path="assets/admin/assets/" data-template="vertical-menu-template-free">
 
@@ -111,10 +85,9 @@ function wordlimiter($string, $limit)
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Science Virtual Laboratory</title>
+  <title>Science Virtual Learning</title>
 
   <meta name="description" content="" />
-
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -148,8 +121,7 @@ function wordlimiter($string, $limit)
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo">
           <a href="index.php" class="app-brand-link">
-
-            <span class=" demo menu-text fw-bolder ms-2">ADMIN</span>
+            <span class="demo menu-text fw-bolder ms-2">ADMIN</span>
           </a>
 
           <a href="javascript:void(0);"
@@ -161,10 +133,9 @@ function wordlimiter($string, $limit)
         <div class="menu-inner-shadow"></div>
 
         <ul class="menu-inner py-1">
-          <?php
-          if (!empty($_SESSION["pengguna"])) {
-            if ($_SESSION["pengguna"]['level'] == 'Admin') {
-          ?> <li class="menu-item">
+          <?php if (!empty($_SESSION["pengguna"])): ?>
+            <?php if ($_SESSION["pengguna"]['level'] === 'Admin'): ?>
+              <li class="menu-item">
                 <a href="index.php" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Dashboard</div>
@@ -194,11 +165,11 @@ function wordlimiter($string, $limit)
                   <div data-i18n="Basic">Data Jawaban</div>
                 </a>
               </li>
-            <?php }
-          } else { ?>
-          <?php } ?>
+            <?php endif; ?>
+          <?php endif; ?>
         </ul>
       </aside>
+
       <div class="layout-page">
         <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
           id="layout-navbar">
@@ -231,7 +202,7 @@ function wordlimiter($string, $limit)
                         </div>
                         <div class="flex-grow-1">
                           <span
-                            class="fw-semibold d-block"><?= $_SESSION["pengguna"]['nama'] ?></span>
+                            class="fw-semibold d-block"><?= htmlspecialchars($_SESSION["pengguna"]['nama']) ?></span>
                         </div>
                       </div>
                     </a>

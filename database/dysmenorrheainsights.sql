@@ -37,8 +37,8 @@ CREATE TABLE `jawaban` (
   `skor` varchar(255) NOT NULL,
   `waktu` datetime NOT NULL DEFAULT current_timestamp(),
   `nama` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `nohp` varchar(15) DEFAULT NULL
+  `kelas` varchar(255) DEFAULT NULL,
+  `sekolah` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

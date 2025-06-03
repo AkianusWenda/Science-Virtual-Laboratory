@@ -1,19 +1,54 @@
-<?php include 'header.php';
-$idkuis = $_GET['id'];
+<?php
+include 'header.php';
 
-// Menggunakan prepared statements untuk query SQL
+$idkuis = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+if ($idkuis <= 0) {
+    echo "<p class='alert alert-danger'>ID kuis tidak valid.</p>";
+    exit;
+}
+
+// Ambil data kuis (termasuk hitung jumlah soal untuk persentase)
 $ambil = $koneksi->prepare("SELECT * FROM kuis WHERE idkuis = ?");
-$ambil->bind_param("i", $idkuis); // Mengikat parameter sebagai integer
+$ambil->bind_param("i", $idkuis);
 $ambil->execute();
-$data = $ambil->get_result()->fetch_assoc();
+$kuisData = $ambil->get_result()->fetch_assoc();
 
-function skor($skor)
+if (!$kuisData) {
+    echo "<p class='alert alert-danger'>Data kuis tidak ditemukan.</p>";
+    exit;
+}
+
+// Ambil jumlah soal untuk hitung persentase skor
+$ambilSoal = $koneksi->prepare("SELECT COUNT(*) AS total_soal FROM soal WHERE idkuis = ?");
+$ambilSoal->bind_param("i", $idkuis);
+$ambilSoal->execute();
+$totalSoalData = $ambilSoal->get_result()->fetch_assoc();
+$totalSoal = (int)$totalSoalData['total_soal'];
+
+// Fungsi konversi nilai persentase ke grade huruf
+function skorHuruf($persentase)
 {
-    if ($skor <= 6) {
+    if ($persentase >= 85 && $persentase <= 100) {
+        return "A";
+    } elseif ($persentase >= 75 && $persentase < 85) {
+        return "B";
+    } elseif ($persentase >= 65 && $persentase < 75) {
+        return "C";
+    } elseif ($persentase >= 55 && $persentase < 65) {
+        return "D";
+    } else {
+        return "E";
+    }
+}
+
+// Fungsi hasil deskriptif berdasarkan persentase
+function hasilDeskriptif($persentase)
+{
+    if ($persentase < 40) {
         return "Kurang";
-    } elseif ($skor <= 14) {
+    } elseif ($persentase < 60) {
         return "Cukup";
-    } elseif ($skor <= 24) {
+    } elseif ($persentase < 85) {
         return "Baik";
     } else {
         return "Sangat Baik";
@@ -21,23 +56,24 @@ function skor($skor)
 }
 
 ?>
+
 <div class="content-wrapper">
-    <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Data Jawaban</h4>
+        <h4 class="fw-bold py-3 mb-4">Data Jawaban Kuis: <?= htmlspecialchars($kuisData['judul']); ?></h4>
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <!-- <a href="latihanpenjawabcetak.php?id=<?= $idkuis ?>" class="btn btn-success float-right btn-sm m-1 mb-4">Cetak</a> -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped" id="tabel">
-                                <thead class="text-white">
+                                <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>No HP</th>
+                                        <th>Kelas</th>
+                                        <th>Sekolah</th>
+                                        <!-- <th>Skor</th> -->
+                                        <th>Nilai</th>
                                         <th>Hasil</th>
                                         <th>Waktu Submit</th>
                                         <th>Aksi</th>
@@ -52,26 +88,30 @@ function skor($skor)
                                     $result = $ambildata->get_result();
 
                                     while ($data = $result->fetch_assoc()) {
+                                        $jumlahBenar = (int)$data['skor'];
+                                        $persentase = ($totalSoal > 0) ? ($jumlahBenar / $totalSoal) * 100 : 0;
+
+                                        $grade = skorHuruf($persentase);
+                                        $hasil = hasilDeskriptif($persentase);
                                     ?>
                                         <tr>
-                                            <td><?php echo $nomor; ?></td>
-                                            <td><?php echo htmlspecialchars($data['nama']); ?></td>
-                                            <td><?php echo htmlspecialchars($data['email']); ?></td>
-                                            <td><?php echo htmlspecialchars($data['nohp']); ?></td>
-                                            <td><?php echo skor($data['skor']); ?></td>
-                                            <td><?php echo date('d-m-Y H:i', strtotime($data['waktu'])); ?></td>
+                                            <td><?= $nomor++; ?></td>
+                                            <td><?= htmlspecialchars($data['nama']); ?></td>
+                                            <td><?= htmlspecialchars($data['kelas']); ?></td>
+                                            <td><?= htmlspecialchars($data['sekolah']); ?></td>
+                                            <!-- <td><?= round($persentase, 2); ?>%</td> -->
+                                            <td><b><?= $grade; ?></b></td>
+                                            <td><?= $hasil; ?></td>
+                                            <td><?= date('d-m-Y H:i', strtotime($data['waktu'])); ?></td>
                                             <td>
-                                                <a href="latihanhasiljawaban.php?id=<?php echo $data['idjawaban']; ?>&idkuis=<?php echo $idkuis; ?>"
+                                                <a href="latihanhasiljawaban.php?id=<?= $data['idjawaban']; ?>&idkuis=<?= $idkuis; ?>"
                                                     class="btn btn-success btn-sm m-1">Jawaban</a>
-                                                <a href="jawabanhapus.php?id=<?php echo $data['idjawaban']; ?>&idkuis=<?php echo $idkuis; ?>"
+                                                <a href="jawabanhapus.php?id=<?= $data['idjawaban']; ?>&idkuis=<?= $idkuis; ?>"
                                                     class="btn btn-danger btn-sm m-1"
                                                     onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data Ini ?')">Hapus</a>
                                             </td>
                                         </tr>
-                                    <?php
-                                        $nomor++;
-                                    }
-                                    ?>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -82,25 +122,4 @@ function skor($skor)
     </div>
 </div>
 
-<?php
-// Memeriksa apakah form disubmit untuk menyimpan kuis baru
-if (isset($_POST['simpan'])) {
-    // Mengambil data dari form
-    $judul = $_POST['judul'];
-    $isi = $_POST['isi'];
-    $tanggal = $_POST['tanggal'];
-
-    // Menggunakan prepared statement untuk menyimpan data kuis
-    $stmt = $koneksi->prepare("INSERT INTO kuis (judul, isi, tanggal, status) VALUES (?, ?, ?, 'Tidak Aktif')");
-    $stmt->bind_param("sss", $judul, $isi, $tanggal); // "sss" berarti tiga parameter string
-    $stmt->execute();
-
-    $idlatihan = $stmt->insert_id;
-    echo "<script>alert('Data Berhasil Disimpan');</script>";
-    echo "<script>location='latihanedit.php?id=$idlatihan';</script>";
-}
-?>
-
-<?php
-include 'footer.php';
-?>
+<?php include 'footer.php'; ?>

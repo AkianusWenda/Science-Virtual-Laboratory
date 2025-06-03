@@ -2,6 +2,7 @@
 
 require 'vendor/autoload.php';
 include '../koneksi.php';
+
 function tanggal($tgl)
 {
     $tanggal = substr($tgl, 8, 2);
@@ -9,45 +10,36 @@ function tanggal($tgl)
     $tahun = substr($tgl, 0, 4);
     return $tanggal . ' ' . $bulan . ' ' . $tahun;
 }
+
 function getBulan($bln)
 {
     switch ($bln) {
         case 1:
             return "Januari";
-            break;
         case 2:
             return "Februari";
-            break;
         case 3:
             return "Maret";
-            break;
         case 4:
             return "April";
-            break;
         case 5:
             return "Mei";
-            break;
         case 6:
             return "Juni";
-            break;
         case 7:
             return "Juli";
-            break;
         case 8:
             return "Agustus";
-            break;
         case 9:
             return "September";
-            break;
         case 10:
             return "Oktober";
-            break;
         case 11:
             return "November";
-            break;
         case 12:
             return "Desember";
-            break;
+        default:
+            return "";
     }
 }
 
@@ -56,56 +48,40 @@ function hari($hari)
     $hari = date("D", strtotime($hari));
     switch ($hari) {
         case 'Sun':
-            $hari_ini = "Minggu";
-            break;
-
+            return "Minggu";
         case 'Mon':
-            $hari_ini = "Senin";
-            break;
-
+            return "Senin";
         case 'Tue':
-            $hari_ini = "Selasa";
-            break;
-
+            return "Selasa";
         case 'Wed':
-            $hari_ini = "Rabu";
-            break;
-
+            return "Rabu";
         case 'Thu':
-            $hari_ini = "Kamis";
-            break;
-
+            return "Kamis";
         case 'Fri':
-            $hari_ini = "Jumat";
-            break;
-
+            return "Jumat";
         case 'Sat':
-            $hari_ini = "Sabtu";
-            break;
-
+            return "Sabtu";
         default:
-            $hari_ini = "Tidak di ketahui";
-            break;
+            return "Tidak di ketahui";
     }
-
-    return $hari_ini;
 }
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-$dompdf = new Dompdf();
 $options = new Options();
 $options->set('isRemoteEnabled', true);
+
 $dompdf = new Dompdf($options);
+
 $html = '
 <html>
 <title>Daftar Penjawab Materi</title>
 </html>
 <style>
 table {
-border-color: #04AA6D;
-border:none;
+    border-color: #04AA6D;
+    border:none;
 }
 
 table tr .text2 {
@@ -136,27 +112,10 @@ table th {
     line-height: 1.8;
 }
 </style>';
-$idkuis = $_GET['id'];
-$ambil = $koneksi->query("SELECT * FROM kuis  WHERE idkuis='$_GET[id]'");
-$data = $ambil->fetch_assoc();
-$nomor = 1;
-$ambildata = $koneksi->query("SELECT*FROM jawaban where idkuis = '$idkuis'");
 
-// <thead>
-// <tr>
-// <th rowspan="2">No</th>
-// <th rowspan="2">Nama</th>
-// <th rowspan="2">NIS</th>
-// <th colspan="3">Hasil Evaluasi</th>
-// <th rowspan="2">Waktu Submit</th>
-// </tr>
-// <tr>
-// <th>Skor Nilai Benar</th>
-// <th>Skor Nilai Salah</th>
-// <th>Skor</th>
-//     </tr>
-// </thead>
-// <tbody>';
+$idkuis = $_GET['id'];
+$ambil = $koneksi->query("SELECT * FROM kuis WHERE idkuis='$idkuis'");
+$data = $ambil->fetch_assoc();
 
 $html .= '
 <div style="padding-left:30px;padding-right:30px">
@@ -167,26 +126,25 @@ $html .= '
 <table border="0">
 <tr>
 <td>Judul Kuis</td>
-<td>: ' . $data['judul'] . '</td>
+<td>: ' . htmlspecialchars($data['judul']) . '</td>
 </tr>
 <tr>
 <td>Kelompok</td>
-<td>: ' . $data['kelompok'] . '</td>
+<td>: ' . htmlspecialchars($data['kelompok']) . '</td>
 </tr>
 <tr>
 <td>Hari / Tanggal</td>
 <td>: ' . hari($data['tanggal']) . ', ' . tanggal($data['tanggal']) . '</td>
 </tr>
 </table>
-<br>
-<br>
+<br><br>
 <table class="table table-hover" id="tabel" width="100%">
 <thead>
 <tr>
 <th rowspan="2">No</th>
 <th rowspan="2">Nama</th>
-<th rowspan="2">Email</th>
-<th rowspan="2">No HP</th>
+<th rowspan="2">Kelas</th>
+<th rowspan="2">Sekolah</th>
 <th colspan="3">Hasil Evaluasi</th>
 <th rowspan="2">Waktu Submit</th>
 </tr>
@@ -194,46 +152,37 @@ $html .= '
 <th>Benar</th>
 <th>Salah</th>
 <th>Nilai</th>
-    </tr>
+</tr>
 </thead>
 <tbody>';
+
+$ambildata = $koneksi->query("SELECT * FROM jawaban WHERE idkuis = '$idkuis'");
 $no = 1;
 while ($data = $ambildata->fetch_assoc()) {
     $html .= '<tr>
-    <td>' . $no . '</td>
-    <td>
-        ' . $data['nama'] . '
-    </td>
-    <td>
-        ' . $data['email'] . '
-    </td>
-    <td>
-        ' . $data['nohp'] . '
-    </td>
-<td>
-' . $data['benar'] . '
-</td>
-<td>
-' . $data['salah'] . '
-</td>
-    <td>
-    ' . $data['nilai'] . '
-</td>
-<td>
-' . tanggal(date('Y-m-d', strtotime($data['waktu']))) . ' ' . date('H:i', strtotime($data['waktu'])) . '
-</td>
-</tr>';
+        <td>' . $no . '</td>
+        <td>' . htmlspecialchars($data['nama']) . '</td>
+        <td>' . htmlspecialchars($data['kelas']) . '</td>
+        <td>' . htmlspecialchars($data['sekolah']) . '</td>
+        <td>' . htmlspecialchars($data['benar']) . '</td>
+        <td>' . htmlspecialchars($data['salah']) . '</td>
+        <td>' . htmlspecialchars($data['nilai']) . '</td>
+        <td>' . tanggal(date('Y-m-d', strtotime($data['waktu']))) . ' ' . date('H:i', strtotime($data['waktu'])) . '</td>
+    </tr>';
     $no++;
 }
+
 $html .= '
 </tbody>
 </table>
 </div>
 ';
+
 $dompdf->loadHtml($html);
 
-$dompdf->setPaper('A4', 'potrait');
+$dompdf->setPaper('A4', 'portrait');
 
 $dompdf->render();
 
-$dompdf->stream("data pendaftar.pdf", array("Attachment" => 0));
+$dompdf->stream("data_pendaftar.pdf", array("Attachment" => 0));
+exit;

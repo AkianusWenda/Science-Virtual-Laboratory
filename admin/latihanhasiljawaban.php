@@ -23,15 +23,15 @@ function skor($skor)
 }
 ?>
 <style>
-.question-image {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
+    .question-image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
 
-.question-text {
-    margin-top: 10px;
-}
+    .question-text {
+        margin-top: 10px;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -57,12 +57,12 @@ function skor($skor)
                                     <td>: <?= htmlspecialchars($jawaban['nama']); ?></td>
                                 </tr>
                                 <tr>
-                                    <td width="15%">Email</td>
-                                    <td>: <?= htmlspecialchars($jawaban['email']); ?></td>
+                                    <td width="15%">Kelas</td>
+                                    <td>: <?= htmlspecialchars($jawaban['kelas']); ?></td>
                                 </tr>
                                 <tr>
-                                    <td width="15%">Nomor HP</td>
-                                    <td>: <?= htmlspecialchars($jawaban['nohp']); ?></td>
+                                    <td width="15%">Sekolah</td>
+                                    <td>: <?= htmlspecialchars($jawaban['sekolah']); ?></td>
                                 </tr>
                                 <tr>
                                     <td width="15%">Hasil</td>
@@ -90,80 +90,80 @@ function skor($skor)
                             $ambiljawabandetail->execute();
                             $jawabandetail = $ambiljawabandetail->get_result()->fetch_assoc();
                         ?>
-                        <input type="hidden" name="idsoal[]" value="<?php echo $data['idsoal']; ?>">
-                        <input type="hidden" name="idkuis" value="<?php echo $data['idkuis']; ?>">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <td width="5%"><?php echo $nomor; ?>.</td>
-                                        <td>
-                                            <?php if ($data['gambar']) { ?>
-                                            <img src="upload/<?php echo htmlspecialchars($data['gambar']); ?>"
-                                                width="550px" class="question-image" alt="Gambar Soal">
-                                            <?php } ?>
-                                            <div class="question-text">
-                                                <?php echo htmlspecialchars($data['soal']); ?>
-                                            </div>
-                                        </td>
-                                        <td width="10%"></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>A. <input name="pilihan[<?php echo $data['idsoal']; ?>]" type="radio"
-                                                <?php if ($jawabandetail['jawaban'] == 'A') echo 'checked'; ?> value="A"
-                                                disabled> <?php echo htmlspecialchars($data['a']); ?></td>
-                                        <td>
-                                            <?php if ($data['kunci'] == "A") {
+                            <input type="hidden" name="idsoal[]" value="<?php echo $data['idsoal']; ?>">
+                            <input type="hidden" name="idkuis" value="<?php echo $data['idkuis']; ?>">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td width="5%"><?php echo $nomor; ?>.</td>
+                                            <td>
+                                                <?php if ($data['gambar']) { ?>
+                                                    <img src="upload/<?php echo htmlspecialchars($data['gambar']); ?>"
+                                                        width="550px" class="question-image" alt="Gambar Soal">
+                                                <?php } ?>
+                                                <div class="question-text">
+                                                    <?php echo htmlspecialchars($data['soal']); ?>
+                                                </div>
+                                            </td>
+                                            <td width="10%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>A. <input name="pilihan[<?php echo $data['idsoal']; ?>]" type="radio"
+                                                    <?php if ($jawabandetail['jawaban'] == 'A') echo 'checked'; ?> value="A"
+                                                    disabled> <?php echo htmlspecialchars($data['a']); ?></td>
+                                            <td>
+                                                <?php if ($data['kunci'] == "A") {
                                                     echo '<i class="fa fa-check text-success"></i>';
                                                 } else {
                                                     echo '<i class="fa fa-times text-danger"></i>';
                                                 } ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>B. <input name="pilihan[<?php echo $data['idsoal']; ?>]" type="radio"
-                                                <?php if ($jawabandetail['jawaban'] == 'B') echo 'checked'; ?> value="B"
-                                                disabled> <?php echo htmlspecialchars($data['b']); ?></td>
-                                        <td>
-                                            <?php if ($data['kunci'] == "B") {
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>B. <input name="pilihan[<?php echo $data['idsoal']; ?>]" type="radio"
+                                                    <?php if ($jawabandetail['jawaban'] == 'B') echo 'checked'; ?> value="B"
+                                                    disabled> <?php echo htmlspecialchars($data['b']); ?></td>
+                                            <td>
+                                                <?php if ($data['kunci'] == "B") {
                                                     echo '<i class="fa fa-check text-success"></i>';
                                                 } else {
                                                     echo '<i class="fa fa-times text-danger"></i>';
                                                 } ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>C. <input name="pilihan[<?php echo $data['idsoal']; ?>]" type="radio"
-                                                <?php if ($jawabandetail['jawaban'] == 'C') echo 'checked'; ?> value="C"
-                                                disabled> <?php echo htmlspecialchars($data['c']); ?></td>
-                                        <td>
-                                            <?php if ($data['kunci'] == "C") {
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>C. <input name="pilihan[<?php echo $data['idsoal']; ?>]" type="radio"
+                                                    <?php if ($jawabandetail['jawaban'] == 'C') echo 'checked'; ?> value="C"
+                                                    disabled> <?php echo htmlspecialchars($data['c']); ?></td>
+                                            <td>
+                                                <?php if ($data['kunci'] == "C") {
                                                     echo '<i class="fa fa-check text-success"></i>';
                                                 } else {
                                                     echo '<i class="fa fa-times text-danger"></i>';
                                                 } ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>D. <input name="pilihan[<?php echo $data['idsoal']; ?>]" type="radio"
-                                                <?php if ($jawabandetail['jawaban'] == 'D') echo 'checked'; ?> value="D"
-                                                disabled> <?php echo htmlspecialchars($data['d']); ?></td>
-                                        <td>
-                                            <?php if ($data['kunci'] == "D") {
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>D. <input name="pilihan[<?php echo $data['idsoal']; ?>]" type="radio"
+                                                    <?php if ($jawabandetail['jawaban'] == 'D') echo 'checked'; ?> value="D"
+                                                    disabled> <?php echo htmlspecialchars($data['d']); ?></td>
+                                            <td>
+                                                <?php if ($data['kunci'] == "D") {
                                                     echo '<i class="fa fa-check text-success"></i>';
                                                 } else {
                                                     echo '<i class="fa fa-times text-danger"></i>';
                                                 } ?>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
                         <?php
                             $nomor++;
                         }
